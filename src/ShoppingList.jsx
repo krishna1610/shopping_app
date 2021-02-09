@@ -26,7 +26,12 @@ class ShoppingList extends React.Component {
             </thead>
             <tbody>
               {
-                this.props.items.map(item => (<ShoppingListItem key={item.id} item={item} />))
+                this.props.items.map(item => (
+                <ShoppingListItem 
+                key={item.id} 
+                item={item}
+                handleItemNameClick={this.props.handleItemNameClick} />
+                ))
               }
             </tbody>
           </table>

@@ -13,6 +13,7 @@ class App extends React.Component {
 
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleItemNameClick = this.handleItemNameClick.bind(this);
   }
 
   handleTextChange(event) {
@@ -42,6 +43,22 @@ class App extends React.Component {
       console.log(this.state.items);
     });
   }
+
+  handleItemNameClick(id) {
+    this.setState({
+      items: this.state.items.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            isCrossed: !item.isCrossed,
+          };
+        } else {
+          return item;
+        }
+      })
+    });
+  }
+
   render() {
     return (
       <main>
@@ -65,12 +82,14 @@ class App extends React.Component {
         items={this.state.items
         .filter((item) => !item.isCrossed && item.name.includes(this.state.queryText))
         .sort((a, b) => a.name.localeCompare(b.name))
-        .sort((a, b) => a.category.localeCompare(b.category))} />
+        .sort((a, b) => a.category.localeCompare(b.category))}
+        handleItemNameClick={this.handleItemNameClick} />
         <ShoppingList 
         name="Crossed Items"
         items={this.state.items
         .filter((item) => item.isCrossed && item.name.includes(this.state.queryText))
-        .sort((a, b) => a.name.localeCompare(b.name))} /> 
+        .sort((a, b) => a.name.localeCompare(b.name))}
+        handleItemNameClick={this.handleItemNameClick} /> 
       </main>
     );
   }
