@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { nanoid } from 'nanoid';
+import ShoppingList from './ShoppingList';
 
 class App extends React.Component {
   constructor(props) {
@@ -60,6 +61,8 @@ class App extends React.Component {
             </form>
           </div>
         </header>
+        <ShoppingList name="Pending Items" />
+        <ShoppingList name="Crossed Items" /> 
       </main>
     );
   }
