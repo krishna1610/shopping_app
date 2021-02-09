@@ -42,7 +42,6 @@ class App extends React.Component {
       console.log(this.state.items);
     });
   }
-
   render() {
     return (
       <main>
@@ -63,10 +62,15 @@ class App extends React.Component {
         </header>
         <ShoppingList 
         name="Pending Items"
-        items={this.state.items.filter((item) => !item.isCrossed)} />
+        items={this.state.items
+        .filter((item) => !item.isCrossed && item.name.includes(this.state.queryText))
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => a.category.localeCompare(b.category))} />
         <ShoppingList 
         name="Crossed Items"
-        items={this.state.items.filter((item) => item.isCrossed)} /> 
+        items={this.state.items
+        .filter((item) => item.isCrossed && item.name.includes(this.state.queryText))
+        .sort((a, b) => a.name.localeCompare(b.name))} /> 
       </main>
     );
   }
