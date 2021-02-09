@@ -19,19 +19,11 @@ class ShoppingListItem extends React.Component {
   }
 
   handleQuantityTextChange(event) {
-    const quantity = parseInt(event.target.value);
-    if (isNaN(quantity)) {
-      return;
-    }
-    this.setState({ quantity });
+    this.setState({ quantity: event.target.value });
   }
 
   handlePriceTextChange(event) {
-    const price = parseFloat(event.target.value);
-    if (isNaN(price)) {
-      return;
-    }
-    this.setState({ price });
+    this.setState({ price: event.target.value });
   }
 
   handleItemNameClick(event) {
@@ -52,10 +44,15 @@ class ShoppingListItem extends React.Component {
 
   handleItemSaveClick(event) {
     event.preventDefault();
+    const quantity = parseInt(this.state.quantity);
+    const price = parseFloat(this.state.price);
+    if (isNaN(quantity) || isNaN(price)) {
+      return;
+    }
     this.props.handleItemSaveClick(this.props.item.id, {
-      category: this.state.category,
-      quantity: this.state.quantity,      
-      price: this.state.price,
+      category: this.state.category.trim(),
+      quantity: quantity,
+      price: price,
     });
   }
 
@@ -91,7 +88,7 @@ class ShoppingListItem extends React.Component {
               className="form-control"
               value={this.state.price}
               onChange={this.handlePriceTextChange} />)
-            : this.props.item.price}
+            : `\$${this.props.item.price}`}
         </td>
         <td key={`${this.props.item.id}-row-actions`} className="align-middle text-end">
           {this.props.item.isEditing

@@ -36,6 +36,15 @@ class ShoppingList extends React.Component {
                 ))
               }
             </tbody>
+            <tfoot>
+              <tr key={`${this.props.name}-footer`}>
+                <th key={`${this.props.name}-footer-name`} scope="row" colSpan="3">Subtotal</th>
+                <th key={`${this.props.name}-footer-price`} className="text-center">
+                  ${this.props.items.reduce((sum, item) => sum + item.price, 0)}
+                </th>
+                <th key={`${this.props.name}-footer-actions`}></th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </section>
