@@ -14,6 +14,7 @@ class App extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleItemNameClick = this.handleItemNameClick.bind(this);
+    this.handleItemEditClick = this.handleItemEditClick.bind(this);
   }
 
   handleTextChange(event) {
@@ -31,6 +32,7 @@ class App extends React.Component {
       id: nanoid(),
       name: this.state.queryText.trim(),
       isCrossed: false,
+      isEditing: false,
       category: '',
       quantity: 0,
       price: 0
@@ -51,10 +53,25 @@ class App extends React.Component {
           return {
             ...item,
             isCrossed: !item.isCrossed,
+            isEditing: false,
           };
         } else {
-          return item;
+          return {
+            ...item,
+            isEditing: false,
+          };
         }
+      })
+    });
+  }
+
+  handleItemEditClick(id) {
+    this.setState({
+      items: this.state.items.map(item => {
+        return {
+          ...item,
+          isEditing: item.id === id,
+        };
       })
     });
   }
@@ -83,13 +100,15 @@ class App extends React.Component {
         .filter((item) => !item.isCrossed && item.name.includes(this.state.queryText))
         .sort((a, b) => a.name.localeCompare(b.name))
         .sort((a, b) => a.category.localeCompare(b.category))}
-        handleItemNameClick={this.handleItemNameClick} />
+        handleItemNameClick={this.handleItemNameClick}
+        handleItemEditClick={this.handleItemEditClick} />
         <ShoppingList 
         name="Crossed Items"
         items={this.state.items
         .filter((item) => item.isCrossed && item.name.includes(this.state.queryText))
         .sort((a, b) => a.name.localeCompare(b.name))}
-        handleItemNameClick={this.handleItemNameClick} /> 
+        handleItemNameClick={this.handleItemNameClick}
+        handleItemEditClick={this.handleItemEditClick} /> 
       </main>
     );
   }
