@@ -1,10 +1,12 @@
 import './App.css';
 import React from 'react';
+import { nanoid } from 'nanoid';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      items: [],
       queryText: ''
     };
 
@@ -19,8 +21,24 @@ class App extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
 
+    if (!this.state.queryText.trim()) {
+      return;
+    }
+
+    const item = {
+      id: nanoid(),
+      name: this.state.queryText.trim(),
+      isCrossed: false,
+      category: '',
+      quantity: 0,
+      price: 0
+    };
+
     this.setState({
+      items: this.state.items.concat(item),
       queryText: ''
+    }, () => {
+      console.log(this.state.items);
     });
   }
 
