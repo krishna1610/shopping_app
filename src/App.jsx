@@ -61,8 +61,12 @@ class App extends React.Component {
             </form>
           </div>
         </header>
-        <ShoppingList name="Pending Items" />
-        <ShoppingList name="Crossed Items" /> 
+        <ShoppingList 
+        name="Pending Items"
+        items={this.state.items.filter((item) => !item.isCrossed)} />
+        <ShoppingList 
+        name="Crossed Items"
+        items={this.state.items.filter((item) => item.isCrossed)} /> 
       </main>
     );
   }

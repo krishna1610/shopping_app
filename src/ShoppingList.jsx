@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import ShoppingListItem from './ShoppingListItem';
 
 class ShoppingList extends React.Component {
   render() {
@@ -23,6 +24,11 @@ class ShoppingList extends React.Component {
                 <th key={`${this.props.name}-header-actions`}></th>
               </tr>
             </thead>
+            <tbody>
+              {
+                this.props.items.map(item => (<ShoppingListItem key={item.id} item={item} />))
+              }
+            </tbody>
           </table>
         </div>
       </section>
