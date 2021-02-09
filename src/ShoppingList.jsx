@@ -31,7 +31,8 @@ class ShoppingList extends React.Component {
                 key={item.id} 
                 item={item}
                 handleItemNameClick={this.props.handleItemNameClick}
-                handleItemEditClick={this.props.handleItemEditClick} />
+                handleItemEditClick={this.props.handleItemEditClick}
+                handleItemSaveClick={this.props.handleItemSaveClick} />
                 ))
               }
             </tbody>

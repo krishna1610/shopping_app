@@ -15,6 +15,7 @@ class App extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleItemNameClick = this.handleItemNameClick.bind(this);
     this.handleItemEditClick = this.handleItemEditClick.bind(this);
+    this.handleItemSaveClick = this.handleItemSaveClick.bind(this);
   }
 
   handleTextChange(event) {
@@ -76,6 +77,27 @@ class App extends React.Component {
     });
   }
 
+  handleItemSaveClick(id, updatedItem) {
+    this.setState({
+      items: this.state.items.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            isEditing: false,
+            category: updatedItem.category,
+            quantity: updatedItem.quantity,
+            price: updatedItem.price,
+          };
+        } else {
+          return {
+            ...item,
+            isEditing: false,
+          };
+        }
+      })
+    });
+  }
+
   render() {
     return (
       <main>
@@ -101,14 +123,16 @@ class App extends React.Component {
         .sort((a, b) => a.name.localeCompare(b.name))
         .sort((a, b) => a.category.localeCompare(b.category))}
         handleItemNameClick={this.handleItemNameClick}
-        handleItemEditClick={this.handleItemEditClick} />
+        handleItemEditClick={this.handleItemEditClick}
+        handleItemSaveClick={this.handleItemSaveClick} />
         <ShoppingList 
         name="Crossed Items"
         items={this.state.items
         .filter((item) => item.isCrossed && item.name.includes(this.state.queryText))
         .sort((a, b) => a.name.localeCompare(b.name))}
         handleItemNameClick={this.handleItemNameClick}
-        handleItemEditClick={this.handleItemEditClick} /> 
+        handleItemEditClick={this.handleItemEditClick}
+        handleItemSaveClick={this.handleItemSaveClick} /> 
       </main>
     );
   }

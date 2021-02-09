@@ -52,6 +52,11 @@ class ShoppingListItem extends React.Component {
 
   handleItemSaveClick(event) {
     event.preventDefault();
+    this.props.handleItemSaveClick(this.props.item.id, {
+      category: this.state.category,
+      quantity: this.state.quantity,      
+      price: this.state.price,
+    });
   }
 
   render() {
